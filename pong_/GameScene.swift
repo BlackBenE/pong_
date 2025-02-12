@@ -7,6 +7,8 @@
 
 import SpriteKit
 import GameplayKit
+import SpriteKit
+import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var ball: SKShapeNode?
@@ -30,7 +32,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func startGame() {
-        // Réinitialisation de la scène
         self.removeAllChildren()
         setUpPhysicsWorld()
         createBall()
@@ -42,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func setUpPhysicsWorld() {
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.physicsWorld.gravity = .zero
         self.physicsWorld.contactDelegate = self
     }
 
@@ -68,10 +69,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resetBall() {
         ball?.position = CGPoint(x: size.width / 2, y: size.height / 2)
         ball?.physicsBody?.velocity = .zero
-        let dx = Int.random(in: -20...20)
-        let dy = Int.random(in: -20...20)
+        let dx = Bool.random() ? 6 : -6
+        let dy = Bool.random() ? 6 : -6
         ball?.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
     }
+
+
 
     func createWalls() {
         createVerticalWall(x: wallWidth / 2)
@@ -89,19 +92,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createPassedBallDetectors() {
-        bottomBallDetector = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
-        bottomBallDetector?.position = CGPoint(x: size.width / 2, y: -10)
-        bottomBallDetector?.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
-        bottomBallDetector?.physicsBody?.isDynamic = false
-        bottomBallDetector?.physicsBody?.categoryBitMask = 2
-        addChild(bottomBallDetector!)
+        bottomBallDetector = createDetector(y: 5)
+        topBallDetector = createDetector(y: size.height - 5)
+    }
 
-        topBallDetector = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
-        topBallDetector?.position = CGPoint(x: size.width / 2, y: size.height + 10)
-        topBallDetector?.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
-        topBallDetector?.physicsBody?.isDynamic = false
-        topBallDetector?.physicsBody?.categoryBitMask = 2
-        addChild(topBallDetector!)
+    func createDetector(y: CGFloat) -> SKShapeNode {
+        let detector = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
+        detector.position = CGPoint(x: size.width / 2, y: y)
+        detector.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 0))
+        detector.physicsBody?.isDynamic = false
+        detector.physicsBody?.categoryBitMask = 2
+        addChild(detector)
+        return detector
     }
 
     func createPaddles() {
@@ -121,21 +123,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func createScore() {
-        bottomScore = SKLabelNode(text: "0")
-        bottomScore?.fontSize = 24
-        bottomScore?.fontColor = .white
-        bottomScore?.position = CGPoint(x: size.width / 2, y: size.height / 2 - 30)
-        addChild(bottomScore!)
+        bottomScore = createScoreLabel(y: size.height / 2 - 30)
+        topScore = createScoreLabel(y: size.height / 2 + 30)
+    }
 
-        topScore = SKLabelNode(text: "0")
-        topScore?.fontSize = 24
-        topScore?.fontColor = .white
-        topScore?.position = CGPoint(x: size.width / 2, y: size.height / 2 + 30)
-        addChild(topScore!)
+    func createScoreLabel(y: CGFloat) -> SKLabelNode {
+        let label = SKLabelNode(text: "0")
+        label.fontSize = 24
+        label.fontColor = .white
+        label.position = CGPoint(x: size.width / 2, y: y)
+        addChild(label)
+        return label
     }
 
     override func update(_ currentTime: TimeInterval) {
-        // Vérifiez si la balle touche un détecteur
         if let ball = ball {
             if ball.position.y < 0 {
                 topPlayerScore += 1
