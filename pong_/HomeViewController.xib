@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,9 +29,17 @@
                     <rect key="frame" x="0.0" y="241" width="393" height="35"/>
                     <color key="tintColor" systemColor="linkColor"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Play Standard Mode"/>
                     <connections>
                         <action selector="PlayButtonTapped:" destination="-1" eventType="touchUpInside" id="nF6-x4-ldw"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0C-hk-NAi">
+                    <rect key="frame" x="92" y="300" width="209" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Play Multiple Balls Mode"/>
+                    <connections>
+                        <action selector="PlayMultipleBallsModeButtonTapped:" destination="-1" eventType="touchUpInside" id="dGQ-oD-zux"/>
                     </connections>
                 </button>
             </subviews>
@@ -42,6 +50,8 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YxV-vz-3kg" secondAttribute="trailing" id="SpC-e0-l1c"/>
                 <constraint firstItem="JfI-lf-cqk" firstAttribute="top" secondItem="YxV-vz-3kg" secondAttribute="bottom" constant="100" id="hlA-EI-QSm"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JfI-lf-cqk" secondAttribute="trailing" id="mCa-oO-F9g"/>
+                <constraint firstItem="c0C-hk-NAi" firstAttribute="top" secondItem="JfI-lf-cqk" secondAttribute="bottom" constant="24" id="qRs-Ur-5IR"/>
+                <constraint firstItem="c0C-hk-NAi" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="v2f-xc-NuS"/>
                 <constraint firstItem="JfI-lf-cqk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wg9-4g-80B"/>
                 <constraint firstItem="YxV-vz-3kg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wk0-Jp-ZCr"/>
             </constraints>

@@ -10,9 +10,9 @@ import GameplayKit
 import SpriteKit
 import GameplayKit
 import AVFoundation
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var ball: SKShapeNode?
+    var currentGameMode: GameMode = .standard
+    var balls: [SKShapeNode] = []
     var topPaddle: SKShapeNode?
     var bottomPaddle: SKShapeNode?
     var topBallDetector: SKShapeNode?
@@ -37,17 +37,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         self.removeAllChildren()
         setUpPhysicsWorld()
-        createBall()
+        createBalls()
         createWalls()
         createPassedBallDetectors()
         createPaddles()
         createScore()
-        resetBall()
+        resetBalls()
     }
 
     func setUpPhysicsWorld() {
         self.physicsWorld.gravity = .zero
         self.physicsWorld.contactDelegate = self
+    }
+
+    func createBalls() {
+        if currentGameMode == .standard {
+            createBall()
+        } else if currentGameMode == .twoBalls {
+            createBall()
+            createBall()
+        }
     }
 
     func createBall() {
@@ -66,18 +75,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.fillColor = .white
 
         addChild(ball)
-        self.ball = ball
+        balls.append(ball)
     }
 
-    func resetBall() {
-        ball?.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        ball?.physicsBody?.velocity = .zero
-        let dx = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
-        let dy = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
-        ball?.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+    func resetBalls() {
+        for ball in balls {
+            ball.position = CGPoint(x: size.width / 2, y: size.height / 2)
+            ball.physicsBody?.velocity = .zero
+            let dx = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
+            let dy = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
+            ball.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+        }
     }
-
-
 
     func createWalls() {
         createVerticalWall(x: wallWidth / 2)
@@ -140,17 +149,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        if let ball = ball {
+        for ball in balls {
             if ball.position.y < 0 {
                 topPlayerScore += 1
                 topScore?.text = "\(topPlayerScore)"
                 checkForWinCondition()
-                resetBall()
+                resetBalls()
             } else if ball.position.y > size.height {
                 bottomPlayerScore += 1
                 bottomScore?.text = "\(bottomPlayerScore)"
                 checkForWinCondition()
-                resetBall()
+                resetBalls()
             }
         }
     }
@@ -165,7 +174,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func hideBall(){
-        ball?.isHidden = true
+        for ball in balls {
+            ball.isHidden = true
+        }
     }
     
     func showEndGameMessage(winner: String) {
@@ -204,4 +215,3 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        }
     }
 }
-

@@ -17,11 +17,17 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func PlayButtonTapped(_ sender: UIButton) {
-        
+        transitionToGameScene(with: .standard)
+    }
+
+    @IBAction func PlayMultipleBallsModeButtonTapped(_ sender: Any) {
+        transitionToGameScene(with: .twoBalls)
+    }
+    
+    func transitionToGameScene(with mode: GameMode) {
         let gameScene = GameScene(size: view.bounds.size)
         gameScene.scaleMode = .aspectFill
-
-        // Configure la vue SpriteKit
+        gameScene.currentGameMode = mode
         let skView = SKView(frame: view.bounds)
         skView.presentScene(gameScene)
 
@@ -30,7 +36,5 @@ class HomeViewController: UIViewController {
         gameViewController.view = skView
         gameViewController.modalPresentationStyle = .fullScreen
         present(gameViewController, animated: true, completion: nil)
-    
     }
-
 }
