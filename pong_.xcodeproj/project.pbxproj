@@ -3,26 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 63;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		A03485E12D5D26CD00BE3D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03485D92D5D26CD00BE3D3C /* Assets.xcassets */; };
+		A03485E22D5D26CD00BE3D3C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */; };
+		A03485E42D5D26CD00BE3D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */; };
+		A03485E52D5D26CD00BE3D3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */; };
+		A03485E62D5D26CD00BE3D3C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03485DA2D5D26CD00BE3D3C /* GameScene.swift */; };
+		A03485E72D5D26CD00BE3D3C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03485DB2D5D26CD00BE3D3C /* HomeViewController.swift */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A03485B82D5D190700BE3D3C /* pong_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong_.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A03485D92D5D26CD00BE3D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A03485DA2D5D26CD00BE3D3C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		A03485DB2D5D26CD00BE3D3C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		A03485DD2D5D26CD00BE3D3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A03485DE2D5D26CD00BE3D3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A03485CA2D5D190800BE3D3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = A03485B72D5D190700BE3D3C /* pong_ */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		A03485BA2D5D190700BE3D3C /* pong_ */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A03485CA2D5D190800BE3D3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = pong_; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A03485B52D5D190700BE3D3C /* Frameworks */ = {
@@ -38,7 +40,7 @@
 		A03485AF2D5D190700BE3D3C = {
 			isa = PBXGroup;
 			children = (
-				A03485BA2D5D190700BE3D3C /* pong_ */,
+				A03485E02D5D26CD00BE3D3C /* pong_ */,
 				A03485B92D5D190700BE3D3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +51,20 @@
 				A03485B82D5D190700BE3D3C /* pong_.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A03485E02D5D26CD00BE3D3C /* pong_ */ = {
+			isa = PBXGroup;
+			children = (
+				A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */,
+				A03485D92D5D26CD00BE3D3C /* Assets.xcassets */,
+				A03485DA2D5D26CD00BE3D3C /* GameScene.swift */,
+				A03485DB2D5D26CD00BE3D3C /* HomeViewController.swift */,
+				A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */,
+				A03485DD2D5D26CD00BE3D3C /* Info.plist */,
+				A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */,
+			);
+			path = pong_;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,9 +81,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				A03485BA2D5D190700BE3D3C /* pong_ */,
 			);
 			name = pong_;
 			packageProductDependencies = (
@@ -115,6 +128,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03485E12D5D26CD00BE3D3C /* Assets.xcassets in Resources */,
+				A03485E22D5D26CD00BE3D3C /* HomeViewController.xib in Resources */,
+				A03485E42D5D26CD00BE3D3C /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,10 +141,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03485E52D5D26CD00BE3D3C /* AppDelegate.swift in Sources */,
+				A03485E62D5D26CD00BE3D3C /* GameScene.swift in Sources */,
+				A03485E72D5D26CD00BE3D3C /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A03485DE2D5D26CD00BE3D3C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A03485CC2D5D190800BE3D3C /* Debug */ = {
