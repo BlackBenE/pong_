@@ -176,25 +176,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
     }
 
     func setupHomeKit() {
-        homeManager = HMHomeManager()
-        homeManager.delegate = self
+        DispatchQueue.main.async {
+            self.homeManager = HMHomeManager()
+            self.homeManager.delegate = self
+        }
     }
+
 
     func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         if let home = manager.primaryHome {
             for accessory in home.accessories {
+                print("📡 Accessoire trouvé : \(accessory.name)")
                 if accessory.name == "Joystick X" {
-                    joystickX = accessory.services.first?.characteristics.first
+                    if let characteristic = accessory.services.first?.characteristics.first {
+                        joystickX = characteristic
+                        print("✅")
+                    } else {
+                        print("⚠️ Aucun characteristic trouvé pour le joystick X")
+                    }
                 }
             }
+        } else {
+            print("❌")
         }
     }
 
+
+
     func updatePaddlePositionFromHomeKit() {
-        joystickX?.readValue { error in
-            if let xValue = self.joystickX?.value as? Int {
-                DispatchQueue.main.async {
-                    self.bottomPaddle?.position.x = CGFloat(xValue)
+        guard let joystickX = joystickX else {
+            print("Joystick non initialisé")
+            return
+        }
+
+        joystickX.readValue { [weak self] error in
+            guard let self = self else { return } 
+
+            if let error = error {
+                print("❌ Erreur HomeKit: \(error.localizedDescription)")
+                return
+            }
+
+            DispatchQueue.main.async {
+                if let xValue = joystickX.value as? Int {
+                    print("🎮 Joystick X: \(xValue)")
+                    let newX = CGFloat(xValue)
+                    if abs(newX - (self.bottomPaddle?.position.x ?? 0)) > 5 {  
+                        self.bottomPaddle?.position.x = newX
+                    }
                 }
             }
         }
