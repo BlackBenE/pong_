@@ -186,13 +186,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
     func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         if let home = manager.primaryHome {
             for accessory in home.accessories {
-                print("📡 Accessoire trouvé : \(accessory.name)")
+                print("📡 Accessory found : \(accessory.name)")
                 if accessory.name == "Joystick X" {
                     if let characteristic = accessory.services.first?.characteristics.first {
                         joystickX = characteristic
                         print("✅")
                     } else {
-                        print("⚠️ Aucun characteristic trouvé pour le joystick X")
+                        print("No characteristic found for joystick X")
                     }
                 }
             }
@@ -213,7 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
             guard let self = self else { return } 
 
             if let error = error {
-                print("❌ Erreur HomeKit: \(error.localizedDescription)")
+                print("Error HomeKit: \(error.localizedDescription)")
                 return
             }
 
