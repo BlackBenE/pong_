@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D33012B2D5D410E00CE426D /* bouncing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D3301292D5D410E00CE426D /* bouncing.mp3 */; };
 		A03485E12D5D26CD00BE3D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03485D92D5D26CD00BE3D3C /* Assets.xcassets */; };
 		A03485E22D5D26CD00BE3D3C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */; };
 		A03485E42D5D26CD00BE3D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D3301292D5D410E00CE426D /* bouncing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bouncing.mp3; sourceTree = "<group>"; };
 		A03485B82D5D190700BE3D3C /* pong_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A03485D92D5D26CD00BE3D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D33012A2D5D410E00CE426D /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				7D3301292D5D410E00CE426D /* bouncing.mp3 */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
 		A03485AF2D5D190700BE3D3C = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		A03485E02D5D26CD00BE3D3C /* pong_ */ = {
 			isa = PBXGroup;
 			children = (
+				7D33012A2D5D410E00CE426D /* sound */,
 				A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */,
 				A03485D92D5D26CD00BE3D3C /* Assets.xcassets */,
 				A03485DA2D5D26CD00BE3D3C /* GameScene.swift */,
@@ -131,6 +142,7 @@
 				A03485E12D5D26CD00BE3D3C /* Assets.xcassets in Resources */,
 				A03485E22D5D26CD00BE3D3C /* HomeViewController.xib in Resources */,
 				A03485E42D5D26CD00BE3D3C /* LaunchScreen.storyboard in Resources */,
+				7D33012B2D5D410E00CE426D /* bouncing.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

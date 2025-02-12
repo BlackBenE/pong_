@@ -9,6 +9,7 @@ import SpriteKit
 import GameplayKit
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var ball: SKShapeNode?
@@ -26,6 +27,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var topPlayerScore = 0
     var bottomPlayerScore = 0
+    
+    var audioPlayer: AVAudioPlayer = AVAudioPlayer()
 
     override func didMove(to view: SKView) {
         startGame()
@@ -69,8 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resetBall() {
         ball?.position = CGPoint(x: size.width / 2, y: size.height / 2)
         ball?.physicsBody?.velocity = .zero
-        let dx = Bool.random() ? 6 : -6
-        let dy = Bool.random() ? 6 : -6
+        let dx = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
+        let dy = CGFloat.random(in: 5...8) * (Bool.random() ? 1 : -1)
         ball?.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
     }
 
@@ -151,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
-        // Gérer les collisions (si nécessaire pour des effets)
+        playBouncingSound()
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -163,6 +166,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if let topPaddle = topPaddle, location.y > size.height / 2 {
             topPaddle.position.x = location.x
         }
+    }
+    
+    func playBouncingSound() {
+        if let soundURL = Bundle.main.url(forResource: "bouncing", withExtension: "mp3") {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer.play()
+        } catch {
+            print("Erreur lors de la lecture du fichier audio: \(error.localizedDescription)")
+        }
+       }
     }
 }
 
