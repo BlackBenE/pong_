@@ -144,13 +144,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if ball.position.y < 0 {
                 topPlayerScore += 1
                 topScore?.text = "\(topPlayerScore)"
+                checkForWinCondition()
                 resetBall()
             } else if ball.position.y > size.height {
                 bottomPlayerScore += 1
                 bottomScore?.text = "\(bottomPlayerScore)"
+                checkForWinCondition()
                 resetBall()
             }
         }
+    }
+    
+    func checkForWinCondition() {
+        let winningScore = 10
+        if topPlayerScore >= winningScore {
+            showEndGameMessage(winner: "Top Player")
+        } else if bottomPlayerScore >= winningScore {
+            showEndGameMessage(winner: "Bottom Player")
+        }
+    }
+    
+    func hideBall(){
+        ball?.isHidden = true
+    }
+    
+    func showEndGameMessage(winner: String) {
+        hideBall()
+        let message = SKLabelNode(text: "\(winner) Wins!")
+        message.fontSize = 32
+        message.fontColor = .yellow
+        message.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        addChild(message)
+        self.isPaused = true
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
