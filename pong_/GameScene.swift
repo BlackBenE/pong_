@@ -7,16 +7,14 @@
 
 import SpriteKit
 import GameplayKit
-import SpriteKit
-import GameplayKit
 import AVFoundation
+import HomeKit
 
 protocol GameSceneDelegate: AnyObject {
     func didRequestReturnToHome()
 }
 
-
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
     weak var gameSceneDelegate: GameSceneDelegate?
     
     var currentGameMode: GameMode = .standard
@@ -37,9 +35,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bottomPlayerScore = 0
     
     var audioPlayer: AVAudioPlayer = AVAudioPlayer()
+    
+    var homeManager: HMHomeManager!
+    var joystickX: HMCharacteristic?
 
     override func didMove(to view: SKView) {
         startGame()
+        setupHomeKit()
     }
 
     func startGame() {
@@ -157,6 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        updatePaddlePositionFromHomeKit()
         for ball in balls {
             if ball.position.y < 0 {
                 topPlayerScore += 1
@@ -168,6 +171,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bottomScore?.text = "\(bottomPlayerScore)"
                 checkForWinCondition()
                 resetBalls()
+            }
+        }
+    }
+
+    func setupHomeKit() {
+        homeManager = HMHomeManager()
+        homeManager.delegate = self
+    }
+
+    func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
+        if let home = manager.primaryHome {
+            for accessory in home.accessories {
+                if accessory.name == "Joystick X" {
+                    joystickX = accessory.services.first?.characteristics.first
+                }
+            }
+        }
+    }
+
+    func updatePaddlePositionFromHomeKit() {
+        joystickX?.readValue { error in
+            if let xValue = self.joystickX?.value as? Int {
+                DispatchQueue.main.async {
+                    self.bottomPaddle?.position.x = CGFloat(xValue)
+                }
             }
         }
     }
@@ -261,12 +289,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func playBouncingSound() {
         if let soundURL = Bundle.main.url(forResource: "bouncing", withExtension: "mp3") {
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            audioPlayer.play()
-        } catch {
-            print("Erreur lors de la lecture du fichier audio: \(error.localizedDescription)")
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer.play()
+            } catch {
+                print("Erreur lors de la lecture du fichier audio: \(error.localizedDescription)")
+            }
         }
-       }
     }
 }
