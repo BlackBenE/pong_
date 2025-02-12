@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D33012B2D5D410E00CE426D /* bouncing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D3301292D5D410E00CE426D /* bouncing.mp3 */; };
+		7D33012D2D5D49D700CE426D /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D33012C2D5D49D700CE426D /* GameMode.swift */; };
 		A03485E12D5D26CD00BE3D3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A03485D92D5D26CD00BE3D3C /* Assets.xcassets */; };
 		A03485E22D5D26CD00BE3D3C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */; };
 		A03485E42D5D26CD00BE3D3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		7D3301292D5D410E00CE426D /* bouncing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bouncing.mp3; sourceTree = "<group>"; };
+		7D33012C2D5D49D700CE426D /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		A03485B82D5D190700BE3D3C /* pong_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A03485D92D5D26CD00BE3D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				A03485DC2D5D26CD00BE3D3C /* HomeViewController.xib */,
 				A03485DD2D5D26CD00BE3D3C /* Info.plist */,
 				A03485DF2D5D26CD00BE3D3C /* LaunchScreen.storyboard */,
+				7D33012C2D5D49D700CE426D /* GameMode.swift */,
 			);
 			path = pong_;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D33012D2D5D49D700CE426D /* GameMode.swift in Sources */,
 				A03485E52D5D26CD00BE3D3C /* AppDelegate.swift in Sources */,
 				A03485E62D5D26CD00BE3D3C /* GameScene.swift in Sources */,
 				A03485E72D5D26CD00BE3D3C /* HomeViewController.swift in Sources */,
