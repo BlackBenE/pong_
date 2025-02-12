@@ -8,29 +8,29 @@
 import UIKit
 import SpriteKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, GameSceneDelegate {
+    
+    func didRequestReturnToHome() {
+        dismiss(animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func PlayButtonTapped(_ sender: UIButton) {
-        
+
         let gameScene = GameScene(size: view.bounds.size)
         gameScene.scaleMode = .aspectFill
-
-        // Configure la vue SpriteKit
+        
+        gameScene.gameSceneDelegate = self
+        
         let skView = SKView(frame: view.bounds)
         skView.presentScene(gameScene)
 
-        // Transition vers la vue SpriteKit
         let gameViewController = UIViewController()
         gameViewController.view = skView
         gameViewController.modalPresentationStyle = .fullScreen
         present(gameViewController, animated: true, completion: nil)
-    
     }
-
 }

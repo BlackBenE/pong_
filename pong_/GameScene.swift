@@ -11,7 +11,14 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 
+protocol GameSceneDelegate: AnyObject {
+    func didRequestReturnToHome()
+}
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    weak var gameSceneDelegate: GameSceneDelegate?
+    
     var ball: SKShapeNode?
     var topPaddle: SKShapeNode?
     var bottomPaddle: SKShapeNode?
@@ -164,24 +171,66 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func hideBall(){
+    func hideAllGameElements(){
         ball?.isHidden = true
+        topPaddle?.isHidden = true
+        topScore?.isHidden = true
+        bottomPaddle?.isHidden = true
+        bottomScore?.isHidden = true
     }
     
     func showEndGameMessage(winner: String) {
-        hideBall()
+        hideAllGameElements()
+
         let message = SKLabelNode(text: "\(winner) Wins!")
         message.fontSize = 32
         message.fontColor = .yellow
-        message.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        message.position = CGPoint(x: size.width / 2, y: size.height / 2 + 50)
         addChild(message)
+
+        let replayButton = SKLabelNode(text: "Retry")
+        replayButton.name = "replayButton"
+        replayButton.fontSize = 24
+        replayButton.fontColor = .white
+        replayButton.position = CGPoint(x: size.width / 2, y: size.height / 2 - 10)
+        addChild(replayButton)
+
+        let homeButton = SKLabelNode(text: "Home")
+        homeButton.name = "homeButton"
+        homeButton.fontSize = 24
+        homeButton.fontColor = .white
+        homeButton.position = CGPoint(x: size.width / 2, y: size.height / 2 - 50)
+        addChild(homeButton)
+
         self.isPaused = true
     }
 
-    func didBegin(_ contact: SKPhysicsContact) {
-        playBouncingSound()
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let touchedNode = atPoint(location)
+
+        if touchedNode.name == "replayButton" {
+            resetGame()
+        } else if touchedNode.name == "homeButton" {
+               goToHomePage()
+           }
     }
 
+    func resetGame() {
+        topPlayerScore = 0
+        bottomPlayerScore = 0
+        self.isPaused = false
+        startGame()
+    }
+    
+    func goToHomePage() {
+            gameSceneDelegate?.didRequestReturnToHome()
+        }
+
+   
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -191,6 +240,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if let topPaddle = topPaddle, location.y > size.height / 2 {
             topPaddle.position.x = location.x
         }
+    }
+    
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        playBouncingSound()
     }
     
     func playBouncingSound() {
