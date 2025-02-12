@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A03485CA2D5D190800BE3D3C /* Exceptions for "pong_" folder in "pong_" target */ = {
+		A03485CA2D5D190800BE3D3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,14 +21,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A03485BA2D5D190700BE3D3C /* pong_ */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				A03485CA2D5D190800BE3D3C /* Exceptions for "pong_" folder in "pong_" target */,
-			);
-			path = pong_;
-			sourceTree = "<group>";
-		};
+		A03485BA2D5D190700BE3D3C /* pong_ */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A03485CA2D5D190800BE3D3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = pong_; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +92,7 @@
 				};
 			};
 			buildConfigurationList = A03485B32D5D190700BE3D3C /* Build configuration list for PBXProject "pong_" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -107,7 +101,6 @@
 			);
 			mainGroup = A03485AF2D5D190700BE3D3C;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = A03485B92D5D190700BE3D3C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
