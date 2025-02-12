@@ -92,7 +92,7 @@
 				};
 			};
 			buildConfigurationList = A03485B32D5D190700BE3D3C /* Build configuration list for PBXProject "pong_" */;
-			compatibilityVersion = "Xcode 15.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
