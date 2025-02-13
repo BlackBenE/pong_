@@ -188,14 +188,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
             for accessory in home.accessories {
                 print("📡 Accessory found : \(accessory.name)")
                 
-                // Affichage des services et caractéristiques pour déboguer
                 for service in accessory.services {
                     print("🔧 Service: \(service.serviceType)")
+                    print("🔧 Service name: \(service.name)")
+                    print("🔧 Service isUserInteractive: \(service.isUserInteractive)")
+                    print("🔧 Service description: \(service.description)")
                     for characteristic in service.characteristics {
                         print("   - Characteristic: \(characteristic.localizedDescription) - Type: \(characteristic.characteristicType)")
+                        print("🔧 Characteristic properties: \(characteristic.properties)")
+                        print("🔧 Characteristic characteristicType: \(characteristic.characteristicType)")
+                        print("🔧 Characteristic description: \(characteristic.description)")
+                        print("🔧 Characteristic value: \(characteristic.value ?? "nil")")
+
+                        // Vérifie si la caractéristique est lisible avant de l'assigner
+                        if characteristic.properties.contains(HMCharacteristicPropertyReadable) {
+                            joystickX = characteristic
+                            print("✅ Joystick X trouvé et initialisé avec une caractéristique lisible")
+                        } else {
+                            print("❌ Aucune caractéristique lisible trouvée pour Joystick X")
+                        }
                     }
                 }
-
+/*
                 if accessory.name == "player-1" || accessory.name == "player-2" {
                     if let joystickCharacteristic = accessory.services.first?.characteristics.first {
                         joystickX = joystickCharacteristic
@@ -204,6 +218,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
                         print("❌ Aucune caractéristique trouvée pour Joystick X")
                     }
                 }
+ */
             }
         } else {
             print("❌ Aucun domicile HomeKit configuré")
@@ -219,7 +234,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
             return
         }
         print(joystickX)
-        print("🎛️ Propriétés du joystickX: \(joystickX.properties)")
+        print("🎛️ joystickX properties: \(joystickX.properties)")
+        print("🎛️ joystickX characteristicType: \(joystickX.characteristicType)")
+        print("🎛️ joystickX description: \(joystickX.description)")
+        print("🎛️ joystickX value: \(joystickX.value)")
         
 
         joystickX.enableNotification(true) { error in
