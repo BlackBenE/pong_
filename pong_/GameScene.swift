@@ -187,47 +187,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         if let home = manager.primaryHome {
             for accessory in home.accessories {
                 print("📡 Accessory found : \(accessory.name)")
-                if accessory.name == "Joystick X" {
-                    if let characteristic = accessory.services.first?.characteristics.first {
-                        joystickX = characteristic
-                        print("✅")
+                
+                // Affichage des services et caractéristiques pour déboguer
+                for service in accessory.services {
+                    print("🔧 Service: \(service.serviceType)")
+                    for characteristic in service.characteristics {
+                        print("   - Characteristic: \(characteristic.localizedDescription) - Type: \(characteristic.characteristicType)")
+                    }
+                }
+
+                if accessory.name == "player-1" || accessory.name == "player-2" {
+                    if let joystickCharacteristic = accessory.services.first?.characteristics.first {
+                        joystickX = joystickCharacteristic
+                        print("✅ Joystick X trouvé et initialisé")
                     } else {
-                        print("No characteristic found for joystick X")
+                        print("❌ Aucune caractéristique trouvée pour Joystick X")
                     }
                 }
             }
         } else {
-            print("❌")
+            print("❌ Aucun domicile HomeKit configuré")
         }
     }
+
 
 
 
     func updatePaddlePositionFromHomeKit() {
-        guard let joystickX = joystickX else {
-            print("Joystick non initialisé")
+        guard let joystickX = self.joystickX else {
+            print("❌ Joystick non initialisé")
             return
         }
+        print(joystickX)
+        print("🎛️ Propriétés du joystickX: \(joystickX.properties)")
+        
 
-        joystickX.readValue { [weak self] error in
-            guard let self = self else { return } 
-
+        joystickX.enableNotification(true) { error in
             if let error = error {
-                print("Error HomeKit: \(error.localizedDescription)")
-                return
+                print("❌ Erreur d’activation des notifications: \(error.localizedDescription)")
+            } else {
+                print("✅ Notifications activées pour Joystick X")
             }
+        }
+        
+        if joystickX.properties.contains(HMCharacteristicPropertyReadable) == false {
+            print("❌ Cette caractéristique ne supporte pas la lecture")
+        }
 
-            DispatchQueue.main.async {
-                if let xValue = joystickX.value as? Int {
-                    print("🎮 Joystick X: \(xValue)")
-                    let newX = CGFloat(xValue)
-                    if abs(newX - (self.bottomPaddle?.position.x ?? 0)) > 5 {  
-                        self.bottomPaddle?.position.x = newX
+
+        if joystickX.properties.contains(HMCharacteristicPropertyReadable) {
+            joystickX.readValue { [weak self] error in
+                guard let self = self else { return }
+                if let error = error {
+                    print("❌ Erreur HomeKit: \(error.localizedDescription)")
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let xValue = joystickX.value as? Int {
+                        print("🎮 Joystick X Value: \(xValue)")
+                        self.bottomPaddle?.position.x = CGFloat(xValue)
+                    } else {
+                        print("⚠️ Valeur du joystick incorrecte: \(joystickX.value ?? "nil")")
                     }
                 }
             }
+        } else {
+            print("❌ La caractéristique du joystick ne supporte pas la lecture")
         }
+
     }
+
     
     func checkForWinCondition() {
         let winningScore = 10
