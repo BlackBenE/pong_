@@ -20,6 +20,7 @@
 /* Begin PBXFileReference section */
 		7D3301292D5D410E00CE426D /* bouncing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bouncing.mp3; sourceTree = "<group>"; };
 		7D33012C2D5D49D700CE426D /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		7D8B58E22D5DF4360075AA21 /* pong_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pong_.entitlements; sourceTree = "<group>"; };
 		A03485B82D5D190700BE3D3C /* pong_.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong_.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A03485D92D5D26CD00BE3D3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 		A03485E02D5D26CD00BE3D3C /* pong_ */ = {
 			isa = PBXGroup;
 			children = (
+				7D8B58E22D5DF4360075AA21 /* pong_.entitlements */,
 				7D33012A2D5D410E00CE426D /* sound */,
 				A03485D82D5D26CD00BE3D3C /* AppDelegate.swift */,
 				A03485D92D5D26CD00BE3D3C /* Assets.xcassets */,
@@ -182,10 +184,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = pong_/pong_.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LFSNA2UDU4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = pong_/Info.plist;
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Request HomeKit authorization";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -196,7 +201,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "elie.dev.improve.pong-";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.aaldn.pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -209,10 +214,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = pong_/pong_.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LFSNA2UDU4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = pong_/Info.plist;
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Request HomeKit authorization";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -223,7 +231,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "elie.dev.improve.pong-";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.aaldn.pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
