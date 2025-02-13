@@ -37,7 +37,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
     var audioPlayer: AVAudioPlayer = AVAudioPlayer()
     
     var homeManager: HMHomeManager!
-    var joystickX: HMCharacteristic?
+    var joystickXPlayer1: HMCharacteristic?
+    var joystickXPlayer2: HMCharacteristic?
 
     override func didMove(to view: SKView) {
         startGame()
@@ -182,64 +183,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         }
     }
 
-
     func homeManagerDidUpdateHomes(_ manager: HMHomeManager) {
         if let home = manager.primaryHome {
             for accessory in home.accessories {
-                print("📡 Accessory found : \(accessory.name)")
-                
-                for service in accessory.services {
-                    print("🔧 Service: \(service.serviceType)")
-                    print("🔧 Service name: \(service.name)")
-                    print("🔧 Service isUserInteractive: \(service.isUserInteractive)")
-                    print("🔧 Service description: \(service.description)")
-                    for characteristic in service.characteristics {
-                        print("   - Characteristic: \(characteristic.localizedDescription) - Type: \(characteristic.characteristicType)")
-                        print("🔧 Characteristic properties: \(characteristic.properties)")
-                        print("🔧 Characteristic characteristicType: \(characteristic.characteristicType)")
-                        print("🔧 Characteristic description: \(characteristic.description)")
-                        print("🔧 Characteristic value: \(characteristic.value ?? "nil")")
+                print("📡 Accessory found: \(accessory.name)")
 
-                        // Vérifie si la caractéristique est lisible avant de l'assigner
+                for service in accessory.services {
+                    for characteristic in service.characteristics {
                         if characteristic.properties.contains(HMCharacteristicPropertyReadable) {
-                            joystickX = characteristic
-                            print("✅ Joystick X trouvé et initialisé avec une caractéristique lisible")
-                        } else {
-                            print("❌ Aucune caractéristique lisible trouvée pour Joystick X")
+                            if accessory.name == "player-1" {
+                                joystickXPlayer1 = characteristic
+                                print("✅ Joystick X Player 1 trouvé et initialisé")
+                            } else if accessory.name == "player-2" {
+                                joystickXPlayer2 = characteristic
+                                print("✅ Joystick X Player 2 trouvé et initialisé")
+                            }
                         }
                     }
                 }
-/*
-                if accessory.name == "player-1" || accessory.name == "player-2" {
-                    if let joystickCharacteristic = accessory.services.first?.characteristics.first {
-                        joystickX = joystickCharacteristic
-                        print("✅ Joystick X trouvé et initialisé")
-                    } else {
-                        print("❌ Aucune caractéristique trouvée pour Joystick X")
-                    }
-                }
- */
             }
         } else {
             print("❌ Aucun domicile HomeKit configuré")
         }
     }
 
-
-
-
     func updatePaddlePositionFromHomeKit() {
-        guard let joystickX = self.joystickX else {
+        updatePaddlePosition(for: joystickXPlayer1, paddle: bottomPaddle)
+        updatePaddlePosition(for: joystickXPlayer2, paddle: topPaddle)
+    }
+
+    func updatePaddlePosition(for joystickX: HMCharacteristic?, paddle: SKShapeNode?) {
+        guard let joystickX = joystickX, let paddle = paddle else {
             print("❌ Joystick non initialisé")
             return
         }
-        print(joystickX)
-        print("🎛️ joystickX properties: \(joystickX.properties)")
-        print("🎛️ joystickX characteristicType: \(joystickX.characteristicType)")
-        print("🎛️ joystickX description: \(joystickX.description)")
-        print("🎛️ joystickX value: \(joystickX.value)")
         
-
         joystickX.enableNotification(true) { error in
             if let error = error {
                 print("❌ Erreur d’activation des notifications: \(error.localizedDescription)")
@@ -248,11 +226,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
             }
         }
         
-        if joystickX.properties.contains(HMCharacteristicPropertyReadable) == false {
-            print("❌ Cette caractéristique ne supporte pas la lecture")
-        }
-
-
         if joystickX.properties.contains(HMCharacteristicPropertyReadable) {
             joystickX.readValue { [weak self] error in
                 guard let self = self else { return }
@@ -263,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
                 DispatchQueue.main.async {
                     if let xValue = joystickX.value as? Int {
                         print("🎮 Joystick X Value: \(xValue)")
-                        self.bottomPaddle?.position.x = CGFloat(xValue)
+                        paddle.position.x = CGFloat(xValue)
                     } else {
                         print("⚠️ Valeur du joystick incorrecte: \(joystickX.value ?? "nil")")
                     }
@@ -272,10 +245,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         } else {
             print("❌ La caractéristique du joystick ne supporte pas la lecture")
         }
-
     }
 
-    
     func checkForWinCondition() {
         let winningScore = 10
         if topPlayerScore >= winningScore {
@@ -285,7 +256,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         }
     }
     
-    func hideAllGameElements(){
+    func hideAllGameElements() {
         for ball in balls {
             ball.isHidden = true
         }
@@ -321,7 +292,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         self.isPaused = true
     }
 
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -330,8 +300,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
         if touchedNode.name == "replayButton" {
             resetGame()
         } else if touchedNode.name == "homeButton" {
-               goToHomePage()
-           }
+            goToHomePage()
+        }
     }
 
     func resetGame() {
@@ -342,11 +312,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
     }
     
     func goToHomePage() {
-            gameSceneDelegate?.didRequestReturnToHome()
-        }
+        gameSceneDelegate?.didRequestReturnToHome()
+    }
 
-   
-    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -357,7 +325,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
             topPaddle.position.x = location.x
         }
     }
-    
     
     func didBegin(_ contact: SKPhysicsContact) {
         playBouncingSound()
