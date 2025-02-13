@@ -236,7 +236,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, HMHomeManagerDelegate {
                 DispatchQueue.main.async {
                     if let xValue = joystickX.value as? Int {
                         print("🎮 Joystick X Value: \(xValue)")
-                        paddle.position.x = CGFloat(xValue)
+                        let screenWidth = UIScreen.main.bounds.width
+                            let paddleWidth = paddle.frame.width
+                        let newX = CGFloat(CGFloat(xValue) + paddle.position.x)
+                            let minX = paddleWidth / 2
+                            let maxX = screenWidth - paddleWidth / 2
+                        paddle.position = CGPoint(x: min(max(newX, minX), maxX), y: paddle.position.y)
                     } else {
                         print("⚠️ Valeur du joystick incorrecte: \(joystickX.value ?? "nil")")
                     }
